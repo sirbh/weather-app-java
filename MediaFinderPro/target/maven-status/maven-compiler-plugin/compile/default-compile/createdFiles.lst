@@ -1,3 +1,4 @@
+tuni\fi\mediafinderpro\SecondaryController.class
 module-info.class
-org\tuni\mediafinderpro\App.class
-org\tuni\mediafinderpro\SystemInfo.class
+tuni\fi\mediafinderpro\App.class
+tuni\fi\mediafinderpro\PrimaryController.class

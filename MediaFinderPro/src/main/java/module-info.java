@@ -1,4 +1,7 @@
-module org.tuni.mediafinderpro {
+module tuni.fi.mediafinderpro {
     requires javafx.controls;
-    exports org.tuni.mediafinderpro;
+    requires javafx.fxml;
+
+    opens tuni.fi.mediafinderpro to javafx.fxml;
+    exports tuni.fi.mediafinderpro;
 }
