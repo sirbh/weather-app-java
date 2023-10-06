@@ -1,4 +1,4 @@
-package tuni.fi.mediafinderpro;
+package tuni.fi.mediafinder;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
