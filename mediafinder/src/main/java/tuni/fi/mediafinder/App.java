@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import tuni.fi.mediafinder.apimanager.GoogleBooksAPIManager;
-import tuni.fi.mediafinder.apimanager.MovieAPIManager;
+
+import tuni.fi.mediafinder.apimanager.http.APIManager;
+import tuni.fi.mediafinder.apimanager.mapping.GoogleBooksNamespace;
+import tuni.fi.mediafinder.apimanager.mapping.MovieNamespace;
 
 /**
  * JavaFX App
@@ -36,14 +38,12 @@ public class App extends Application {
     public static void main(String[] args) {
       // uncomment this line to launch the JavaFX UI
       //  launch();
-      // test call to GoogleBookAPI
-      
-      String resp =   GoogleBooksAPIManager.getBooksByTitle("Horror", 10, 10);
-      System.out.println(resp);
-      // test call tp TMDB movies API
-      
-      String resp2 =   MovieAPIManager.getMoviesByTitle("Horror", 1);
-      System.out.println(resp2);
+
+        String test1 = APIManager.querySearchString("Horror", 1, new GoogleBooksNamespace());
+        System.out.println(test1);
+
+        String test2 = APIManager.querySearchString("Horror", 1, new MovieNamespace());
+        System.out.println(test2);
      }
 
 }
