@@ -17,6 +17,13 @@ public class Book implements Media {
     private String title;
     private Double rating;
 
+    public Book(String id, String title, String releaseDate, Double rating) {
+        this.id = id;
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
+    }
+
     public Double getRating() {
         return rating;
     }

@@ -11,6 +11,7 @@ import tuni.fi.mediafinder.utility.Utility;
  * @author knsach
  */
 public interface Media {
+
     String getTitle();
     String getReleaseDate();
     Double getRating();
