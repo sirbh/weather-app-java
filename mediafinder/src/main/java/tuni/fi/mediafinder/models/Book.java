@@ -4,13 +4,15 @@
  */
 package tuni.fi.mediafinder.models;
 
+import java.util.Map;
+
 import tuni.fi.mediafinder.utility.Utility;
 
 /**
  *
  * @author knsach
  */
-public class Book implements Media {
+public class Book implements Media, Viewable {
     private String id;
     private String releaseDate;
     private Utility.MediaType mediaType = Utility.MediaType.BOOK;
@@ -65,6 +67,9 @@ public class Book implements Media {
         return "Book{" + "id=" + id + ", releaseDate=" + releaseDate + ", mediaType=" + mediaType + ", title=" + title + ", rating=" + rating + '}';
     }
     
-    
+    @Override
+    public Map<String, String> getVieableMap(){
+        return Map.of("Title", title, "Release date", releaseDate, "Rating", rating.toString());
+    }
 }
 
