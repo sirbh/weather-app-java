@@ -13,56 +13,52 @@ import tuni.fi.mediafinder.utility.Utility;
  * @author knsach
  */
 public class Movie implements Media, Viewable {
-    
-    private String id;
-    private String releaseDate;
-    private Utility.MediaType mediaType = Utility.MediaType.BOOK;
-    private String title;
-    private Double rating;
+    private final String id;
+    private final String releaseDate;
+    private final Utility.MediaType mediaType = Utility.MediaType.MOVIE;
+    private final String title;
+    private final String description;
+    private final Double rating;
+
+    public Movie(String id, String title, String description, String releaseDate, Double rating) {
+        this.id = id;
+        this.releaseDate = releaseDate;
+        this.title = title;
+        this.description = description;
+        this.rating = rating;
+    }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public Utility.MediaType getMediaType() {
         return mediaType;
-    }
-
-    public void setMediaType(Utility.MediaType mediaType) {
-        this.mediaType = mediaType;
     }
 
     public String getTitle() {
         return title;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getDescription() { return this.description != null ? this.description : ""; }
 
     public Double getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    @Override
+    public String toString() {
+        return "Movie{" + "id=" + id + ", releaseDate=" + releaseDate + ", mediaType=" + mediaType +
+                ", title=" + title + ", description=" +  (description != null && description.length() > 20 ? description.substring(0, 20) : description)
+                + ", rating=" + rating + '}';
     }
 
     @Override
     public Map<String, String> getVieableMap(){
-        return Map.of("Title", title, "Release date", releaseDate, "Rating", rating.toString());
+        return Map.of("Title", title, "Description", description, "Release date", releaseDate, "Rating", rating.toString());
     }
 }
 

@@ -5,10 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import com.google.gson.Gson;
 import java.io.IOException;
-import tuni.fi.mediafinder.apimanager.GoogleBooksAPIManager;
-import tuni.fi.mediafinder.apimanager.MovieAPIManager;
+import java.util.ArrayList;
+
+import org.json.JSONObject;
+import tuni.fi.mediafinder.apimanager.http.APIManager;
+import tuni.fi.mediafinder.apimanager.mapping.GoogleBooksNamespace;
+import tuni.fi.mediafinder.apimanager.mapping.GoogleBooksResponse;
+import tuni.fi.mediafinder.apimanager.mapping.MovieNamespace;
+import tuni.fi.mediafinder.models.Media;
 
 /**
  * JavaFX App
@@ -35,15 +41,11 @@ public class App extends Application {
 
     public static void main(String[] args) {
       // uncomment this line to launch the JavaFX UI
-      launch();
-      // test call to GoogleBookAPI
-      
-      String resp =   GoogleBooksAPIManager.getBooksByTitle("Horror", 10, 10);
-      System.out.println(resp);
-      // test call tp TMDB movies API
-      
-      String resp2 =   MovieAPIManager.getMoviesByTitle("Horror", 1);
-      System.out.println(resp2);
+      //  launch();
+
+        ArrayList<Media> media = APIManager.searchMedia("Horror");
+
+        System.out.println(media.size());
      }
 
 }
