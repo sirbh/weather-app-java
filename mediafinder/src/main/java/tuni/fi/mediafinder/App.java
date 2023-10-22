@@ -43,9 +43,9 @@ public class App extends Application {
       // uncomment this line to launch the JavaFX UI
       //  launch();
 
-        ArrayList<Media> books = APIManager.searchBooks("Horror", 1);
+        ArrayList<Media> media = APIManager.searchMedia("Horror");
 
-        System.out.println(books);
+        System.out.println(media.size());
      }
 
 }

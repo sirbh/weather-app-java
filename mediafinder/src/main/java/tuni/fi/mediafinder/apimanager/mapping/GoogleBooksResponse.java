@@ -20,6 +20,7 @@ public class GoogleBooksResponse extends APIResponse {
         public String getTitle() {
             return this.volumeInfo.getTitle();
         }
+        public String getDescription() { return this.volumeInfo.getDescription(); }
         public String getPublishedDate() {
             return this.volumeInfo.getPublishedDate();
         }
@@ -46,6 +47,7 @@ public class GoogleBooksResponse extends APIResponse {
         public String getTitle() {
             return title;
         }
+        public String getDescription() { return description; }
         public String getPublishedDate() {
             return publishedDate;
         }
@@ -80,7 +82,7 @@ public class GoogleBooksResponse extends APIResponse {
     public ArrayList<Media> build() {
         ArrayList<Media> books = new ArrayList<>();
         for (BookItem item : items) {
-            Book book = new Book(item.getId(), item.getTitle(), item.getPublishedDate(), item.getRating());
+            Book book = new Book(item.getId(), item.getTitle(), item.getDescription(), item.getPublishedDate(), item.getRating());
             books.add(book);
         }
         return books;

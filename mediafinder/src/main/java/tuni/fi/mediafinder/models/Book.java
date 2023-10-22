@@ -11,33 +11,27 @@ import tuni.fi.mediafinder.utility.Utility;
  * @author knsach
  */
 public class Book implements Media {
-    private String id;
-    private String releaseDate;
-    private Utility.MediaType mediaType = Utility.MediaType.BOOK;
-    private String title;
-    private Double rating;
+    private final String id;
+    private final String releaseDate;
+    private final Utility.MediaType mediaType = Utility.MediaType.BOOK;
+    private final String title;
+    private final String description;
+    private final Double rating;
 
-    public Book(String id, String title, String releaseDate, Double rating) {
+    public Book(String id, String title, String description, String releaseDate, Double rating) {
         this.id = id;
         this.title = title;
+        this.description = description;
         this.releaseDate = releaseDate;
-        this.rating = rating;
+        this.rating = rating != null ? 2 * rating : null;
     }
 
     public Double getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     @Override
@@ -45,31 +39,24 @@ public class Book implements Media {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     @Override
     public Utility.MediaType getMediaType() {
         return mediaType;
     }
 
-    public void setMediaType(Utility.MediaType mediaType) {
-        this.mediaType = mediaType;
-    }
-
     @Override
     public String getTitle() {
-        return title;
+        return this.title;
     }
-
-    public void setTitle(String title) {
-        this.title = title;
+    @Override
+    public  String getDescription() {
+        return this.description != null ? this.description : "";
     }
-
     @Override
     public String toString() {
-        return "Book{" + "id=" + id + ", releaseDate=" + releaseDate + ", mediaType=" + mediaType + ", title=" + title + ", rating=" + rating + '}';
+        return "Book{" + "id=" + id + ", releaseDate=" + releaseDate + ", mediaType=" + mediaType +
+                ", title=" + title + ", description=" + (description != null && description.length() > 20 ? description.substring(0, 20) : description)
+                + ", rating=" + rating + '}';
     }
     
     
