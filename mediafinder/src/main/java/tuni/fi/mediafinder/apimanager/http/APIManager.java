@@ -22,10 +22,8 @@ public class APIManager {
         return response;
     }
 
-    public static ArrayList<Media> searchMedia(String searchString) {
+    public static ArrayList<Media> searchMedia(String searchString, boolean searchBooks, boolean searchMovies) {
         ArrayList<Media> media = new ArrayList<>();
-        boolean searchBooks = true;
-        boolean searchMovies = true;
         for(int pageNumber = 1; pageNumber <= PAGES_PER_SEARCH && (searchMovies || searchBooks); pageNumber++) {
             if (searchBooks) {
                 ArrayList<Media> books = searchBooks(searchString, 2 * pageNumber);

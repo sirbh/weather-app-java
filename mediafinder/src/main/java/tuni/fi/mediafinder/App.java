@@ -43,7 +43,7 @@ public class App extends Application {
       // uncomment this line to launch the JavaFX UI
         launch();
 
-        ArrayList<Media> media = APIManager.searchMedia("Horror");
+        ArrayList<Media> media = APIManager.searchMedia("Horror", true, true);
 
         System.out.println(media.size());
      }
