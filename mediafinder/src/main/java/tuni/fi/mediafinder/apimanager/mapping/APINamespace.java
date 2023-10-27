@@ -6,4 +6,5 @@ public abstract class APINamespace {
     public abstract String getAuthenticationToken();
     public abstract String getSearchStringQueryKey();
     public abstract String getPageQuery(int pageNumber);
+    public abstract  String getSpaceEncoding();
 }
