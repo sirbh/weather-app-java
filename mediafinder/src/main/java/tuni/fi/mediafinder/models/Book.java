@@ -25,7 +25,7 @@ public class Book implements Media, Viewable {
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
-        this.rating = rating != null ? 2 * rating : null;
+        this.rating = rating != null ? 2 * rating : 0;
     }
 
     public Double getRating() {

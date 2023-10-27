@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class MovieDBResponse extends APIResponse {
     private int page;
-    private ArrayList<MovieItem> results;
+    private ArrayList<MovieItem> results = new ArrayList<>();
 
     private static class MovieItem {
         private String getId() {

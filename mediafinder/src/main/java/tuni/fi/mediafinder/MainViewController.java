@@ -20,11 +20,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.util.Pair;
+import tuni.fi.mediafinder.apimanager.http.APIManager;
+import tuni.fi.mediafinder.models.Media;
 
 public class MainViewController {
     
-    // This is the search bar. You can use this to get the 
+    // This is the search bar. You can use this to get the keywords for 
+    // the API call.
     public TextField searchField;
+    
     public RadioButton moviesRadioButton;
     public RadioButton booksRadioButton;
     public DatePicker startDateCalendar;
@@ -34,10 +39,18 @@ public class MainViewController {
     public GridPane searchResultsGrid;
     public StackPane detailsContainer;
     public Pane searchContainer;
+    
     // This is used for accesing the labels in the gridpane. Also useful for 
     // getting the name of the book or movie when opening 
     // a single media item view.
-    private ArrayList<ArrayList<Node>> gridPaneArrayList = null;
+    private ArrayList<ArrayList<Pair<Node, Media>>> gridPaneArrayList = null;
+    
+    // This ArrayList contains the the Media items that are displayed to the 
+    // after pressing the search button.
+    private ArrayList<Media> mediaItems = null;
+    
+    private final int gridHeight = 5;
+    private final int gridWidth = 2;
     
     /**
      * Initializes the main view and creates an empty grid that will contain
@@ -46,15 +59,16 @@ public class MainViewController {
      */
     @FXML 
     private void initialize() throws IOException {    
-        gridPaneArrayList = new ArrayList<>(5);
+        gridPaneArrayList = new ArrayList<>(gridHeight);
         detailsContainer.setVisible(false);
-        for (int i = 0; i < 5; i++) {
-            ArrayList<Node> nodeList = new ArrayList<>();
+        
+        for (int i = 0; i < gridHeight; i++) {
+            ArrayList<Pair<Node, Media>> nodeList = new ArrayList<>();
             
-            for (int j = 0; j < 2; j++) {
+            for (int j = 0; j < gridWidth; j++) {
                 Label emptyLabel = new Label("");
                 searchResultsGrid.add(emptyLabel, j, i);
-                nodeList.add(emptyLabel);
+                nodeList.add(new Pair<> (emptyLabel, null));
             }
             gridPaneArrayList.add(nodeList);
         }
@@ -65,8 +79,9 @@ public class MainViewController {
      * Handles the clicking of a node in the GridPane.
      * @param event A mouseclick.
      */
-    // This function was made with the help of ChatGPT. Leaving this comment
-    // so that we'll know where we used the AI.
+    // This function was made with the help of ChatGPT, more specifically 
+    // the part where the coordinates of the grid node are acquired. 
+    // Leaving this comment so that we'll know where we used the AI.
     @FXML
     private void onGridNodeClicked(MouseEvent event) {
         double mouseX = event.getX();
@@ -75,22 +90,21 @@ public class MainViewController {
         int clickedRow = (int) (mouseY / (searchResultsGrid.getHeight() / searchResultsGrid.getRowConstraints().size()));
         
         // Here comes the code that opens the single media item view.
-        Label mediaName = (Label) gridPaneArrayList.get(clickedRow).get(clickedColumn);
-        System.out.println(mediaName.getText());
-        // testing123
+        Media singleMediaItem = gridPaneArrayList.get(clickedRow).get(clickedColumn).getValue();
+        
         searchContainer.setVisible(false);
         detailsContainer.setVisible(true);
         Map<String, String> movieDetails = Map.of(
-            "Title", "Star Wars: Return of the Jedi",
-            "Genres", "Sci-fi,Action,Adventure",
-            "Release Date", "25/05/1983",
-            "Language", "English",
-            "Age Rating", "PG 12",
-            "Length", "1h 31min",
-            "Description", "Return of the Jedi is the concluding chapter of the original Star Wars trilogy. The Rebel Alliance, having regrouped after their defeat in 'The Empire Strikes Back', plans an attack on the second Death Star, which the Galactic Empire is constructing. Meanwhile, Luke Skywalker seeks to redeem his father, Anakin, and bring him back from the Dark Side.",
-            "Director", "Richard Marquand",
-            "Producer", "Howard Kazanjian",
-            "Screenplay", "Lawrence Kasdan, George Lucas"
+            "Title", singleMediaItem.getTitle(),
+            "Genres", "",
+            "Release Date", singleMediaItem.getReleaseDate(),
+            "Language", "",
+            "Rating", singleMediaItem.getRating().toString(),
+            "Length", "",
+            "Description", singleMediaItem.getDescription(),
+            "Director", "",
+            "Producer", "",
+            "Screenplay", ""
         );
 
         
@@ -98,35 +112,69 @@ public class MainViewController {
     }
     
     /**
-     * A search function that pulls makes the pull request to the APIs.
+     * A search function that makes the pull request to the APIs.
      * @throws IOException 
      */
     @FXML
     private void search() throws IOException {
         // This function can be used to call the APIs.
-        
-        // Test data, for illustrating how it would look. 
-        // The actual data would be given in a similar format.
-        // You can change this if you feel it doesn't work well.
-        detailsContainer.setVisible(false);
-        ArrayList<String> media1 = new ArrayList(2);
-        media1.add(("Star Wars Movie"));
-        media1.add(("Star Wars Book"));
-        
-        ArrayList<ArrayList<String>> media2 = new ArrayList(5);
-        media2.add(media1);
-        
-        for (int i = 0; i < media2.size(); i++) {
+        if (searchField.getText().length() != 0) {
             
-            for (int j = 0; j < media2.get(i).size(); j++) {
-                Label newName = (Label) gridPaneArrayList.get(i).get(j);
-                newName.setText(media2.get(i).get(j));
-            }
-        }
-        System.out.println(gridPaneArrayList.get(0).get(0));
-        searchResultsGrid.setVisible(true);
-    }
+            detailsContainer.setVisible(false);
 
+            mediaItems = APIManager.searchMedia(searchField.getText(),
+                    booksRadioButton.isSelected(), moviesRadioButton.isSelected());
+
+            int index = 0;
+            for (int i = 0; i < gridHeight; i++) {
+
+               for (int j = 0; j < gridWidth; j++) {
+                   if (index >= mediaItems.size()) {
+                       break;
+                   }
+                   Label newName = (Label) gridPaneArrayList.get(i).get(j).getKey();
+                   newName.setText(mediaItems.get(index).getTitle());
+                   Pair<Node, Media> newPair = 
+                           new Pair<> (gridPaneArrayList.get(i).get(j).getKey(), 
+                                   mediaItems.get(index));
+                   gridPaneArrayList.get(i).set(j, newPair);
+                   index++;
+               } 
+            }
+            searchResultsGrid.setVisible(true);
+        }
+    }
+    
+    /**
+     * Checks if the radio button for movies is enabled when trying to disable 
+     * the radio button for books. If it is enabled, then the function does nothing.
+     * Otherwise, it will keep enabling the books radio button.
+     * This prevents a situation where the user has disabled both radio buttons 
+     * and tries to search for media.
+     */
+    @FXML 
+    private void checkIfMoviesRadioButtonEnabled() {
+        
+        if (!moviesRadioButton.isSelected()) {
+            booksRadioButton.setSelected(true);
+        }
+    }
+    
+    /**
+     * Checks if the radio button for books is enabled when trying to disable 
+     * the radio button for movies. If it is enabled, then the function does nothing.
+     * Otherwise, it will keep enabling the movies radio button.
+     * This prevents a situation where the user has disabled both radio buttons 
+     * and tries to search for media.
+     */
+    @FXML
+    private void checkIfBooksRadioButtonEnabled() {
+        
+        if (!booksRadioButton.isSelected()) {
+            moviesRadioButton.setSelected(true);
+        }
+    }
+    
     @FXML
     private void updateMovieDetails(Map<String, String> details) {
         detailsContainer.getChildren().clear(); // Clear existing children

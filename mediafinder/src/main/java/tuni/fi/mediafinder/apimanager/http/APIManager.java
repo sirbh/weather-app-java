@@ -9,10 +9,14 @@ import tuni.fi.mediafinder.utility.Utility;
 import java.util.ArrayList;
 
 public class APIManager {
-    static int PAGES_PER_SEARCH = 4;
+    static int MEDIA_PER_PAGE = 160;
+    static int NUMBER_OF_MEDIA_TYPES = 2;
+    static int ITEMS_PER_MEDIATYPE = MEDIA_PER_PAGE / NUMBER_OF_MEDIA_TYPES;
+    static int FIRST_PAGE = 1;
     private static String querySearchString(String searchString, int pageNumber, APINamespace namespace) {
         String url = namespace.getBaseUrl() + namespace.getSearchStringQueryKey()
                 + "=" + searchString + "&" + namespace.getPageQuery(pageNumber);
+        System.out.println(url);
         String response = "";
         try {
             response = APIClient.get(url, namespace.getAuthenticationToken());
@@ -22,26 +26,22 @@ public class APIManager {
         return response;
     }
 
-    public static ArrayList<Media> searchMedia(String searchString) {
+    public static ArrayList<Media> searchMedia(String searchString, boolean searchBooks, boolean searchMovies) {
         ArrayList<Media> media = new ArrayList<>();
-        boolean searchBooks = true;
-        boolean searchMovies = true;
-        for(int pageNumber = 1; pageNumber <= PAGES_PER_SEARCH && (searchMovies || searchBooks); pageNumber++) {
-            if (searchBooks) {
-                ArrayList<Media> books = searchBooks(searchString, 2 * pageNumber);
-                books.addAll(searchBooks(searchString, 2 * pageNumber - 1));
-                if (books.size() != 2 * GoogleBooksNamespace.BOOKS_PER_PAGE) {
-                    searchBooks = false;
-                }
-                media.addAll(books);
+        int mediaFound = 0;
+        for(int pageNumber = FIRST_PAGE; pageNumber <= ITEMS_PER_MEDIATYPE / GoogleBooksNamespace.BOOKS_PER_PAGE && searchBooks;
+            pageNumber++) {
+            ArrayList<Media> books = searchBooks(searchString, FIRST_PAGE);
+            mediaFound += books.size();
+            media.addAll(books);
+        }
+        for(int pageNumber = FIRST_PAGE; pageNumber <= ITEMS_PER_MEDIATYPE / MovieNamespace.MOVIES_PER_PAGE
+                && searchMovies && mediaFound < MEDIA_PER_PAGE; pageNumber++) {
+            ArrayList<Media> movies = searchMovies(searchString, pageNumber);
+            if (movies.size() != MovieNamespace.MOVIES_PER_PAGE) {
+                searchMovies = false;
             }
-            if (searchMovies) {
-                ArrayList<Media> movies = searchMovies(searchString, pageNumber);
-                if (movies.size() != MovieNamespace.MOVIES_PER_PAGE) {
-                    searchMovies = false;
-                }
-                media.addAll(movies);
-            }
+            media.addAll(movies);
         }
         return media;
     }
@@ -54,8 +54,17 @@ public class APIManager {
         return searchMedia(searchString, pageNumber, Utility.MediaType.MOVIE);
     }
 
+    public static String combineSearchWords(String searchString, String spaceEncoding) {
+        if (searchString == null || searchString.isEmpty()) {
+            return "";
+        }
+
+        return String.join(spaceEncoding, searchString.split(" "));
+    }
+
     private static ArrayList<Media> searchMedia(String searchString, int pageNumber, Utility.MediaType mediaType) {
         APINamespace namespace = mediaType == Utility.MediaType.BOOK ? new GoogleBooksNamespace() : new MovieNamespace();
+        searchString = combineSearchWords(searchString, namespace.getSpaceEncoding());
         String searchResult = querySearchString(searchString, pageNumber, namespace);
         Gson gson = new Gson();
         APIResponse response;
