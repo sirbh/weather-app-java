@@ -65,7 +65,6 @@ public class Controller {
         detailsContainer.setVisible(false);
         ArrayList<Media> mediaItems = APIManager.searchMedia(searchField.getText(),
                 booksRadioButton.isSelected(), moviesRadioButton.isSelected());
-        System.out.println(mediaItems);
         mainView.showSearchResults(mediaItems);
     }
     /**
@@ -91,22 +90,20 @@ public class Controller {
      */
     @FXML
     private void checkIfBooksRadioButtonEnabled() {
-        
         if (!booksRadioButton.isSelected()) {
             moviesRadioButton.setSelected(true);
         }
     }
 
     /**
-     * Handles the clicking of a node in the GridPane. Passes the event to singelMediaView.
+     * Handles the clicking of a node in the GridPane.
+     * Fetches right item from the gridPaneArrayList and opens the single media item view.
      * @param event A mouseclick.
      */
     @FXML
     private void onGridNodeClicked(MouseEvent event) {
-        // TODO: There has to be a better way to get the right node.
         double mouseX = event.getX();
         double mouseY = event.getY();
-        System.out.println(event.getTarget());
         int clickedColumn = (int) (mouseX / (searchResultsGrid.getWidth() / searchResultsGrid.getColumnConstraints().size()));
         int clickedRow = (int) (mouseY / (searchResultsGrid.getHeight() / searchResultsGrid.getRowConstraints().size()));
         
@@ -116,13 +113,7 @@ public class Controller {
         if (singleMediaItem != null) {
             searchContainer.setVisible(false); // Hide Search container
             detailsContainer.setVisible(true); // Show Single media container
-            singleMediaView.showSingleMediaItem(singleMediaItem, detailsContainer);
+            singleMediaView.showSingleMediaItem(singleMediaItem, detailsContainer, searchContainer);
         }
-    }
-
-    @FXML
-    private void onBackButtonClicked() {
-        detailsContainer.setVisible(false);
-        searchContainer.setVisible(true);
     }
 }

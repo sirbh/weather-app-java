@@ -2,20 +2,19 @@ package tuni.fi.mediafinder;
 
 import java.util.Map;
 
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import tuni.fi.mediafinder.models.Media;
 
 public class SingleMediaView {
-    public void showSingleMediaItem(Media singleMediaItem, StackPane detailsContainer) {
+    public void showSingleMediaItem(Media singleMediaItem, StackPane detailsContainer, Pane searchContainer) {
         Map<String, String> details = singleMediaItem.getVieableMap();
         detailsContainer.getChildren().clear(); // Clear existing children
 
@@ -67,7 +66,12 @@ public class SingleMediaView {
             rowIndex++;
         }
         vBox.getChildren().add(grid);
-
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> {
+            detailsContainer.setVisible(false);
+            searchContainer.setVisible(true);
+        });
+        vBox.getChildren().add(backButton);
         detailsContainer.getChildren().add(vBox);
     }
 }
