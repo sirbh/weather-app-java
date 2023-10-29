@@ -4,6 +4,8 @@
  */
 package tuni.fi.mediafinder.models;
 
+import java.util.Map;
+
 import tuni.fi.mediafinder.utility.Utility;
 
 /**
@@ -17,5 +19,6 @@ public interface Media {
     String getReleaseDate();
     Double getRating();
     Utility.MediaType getMediaType();
+    Map<String, String> getVieableMap();
 }
 

@@ -5,16 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.google.gson.Gson;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import org.json.JSONObject;
-import tuni.fi.mediafinder.apimanager.http.APIManager;
-import tuni.fi.mediafinder.apimanager.mapping.GoogleBooksNamespace;
-import tuni.fi.mediafinder.apimanager.mapping.GoogleBooksResponse;
-import tuni.fi.mediafinder.apimanager.mapping.MovieNamespace;
-import tuni.fi.mediafinder.models.Media;
 
 /**
  * JavaFX App
@@ -46,6 +37,6 @@ public class App extends Application {
         /*ArrayList<Media> media = APIManager.searchMedia("Horro man", true, true);
 
         System.out.println(media.size());*/
-     }
+    }
 
 }

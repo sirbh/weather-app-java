@@ -25,21 +25,19 @@ import javafx.util.Pair;
 import tuni.fi.mediafinder.apimanager.http.APIManager;
 import tuni.fi.mediafinder.models.Media;
 
-public class MainViewController {
-    
+public class Controller {
     // This is the search bar. You can use this to get the keywords for 
     // the API call.
-    public TextField searchField;
-    
-    public RadioButton moviesRadioButton;
-    public RadioButton booksRadioButton;
-    public DatePicker startDateCalendar;
-    public DatePicker endDateCalendar;
-    public Button summaryButton;
-    public Button sortButton;
-    public GridPane searchResultsGrid;
-    public StackPane detailsContainer;
-    public Pane searchContainer;
+    private TextField searchField;
+    private RadioButton moviesRadioButton;
+    private RadioButton booksRadioButton;
+    private DatePicker startDateCalendar;
+    private DatePicker endDateCalendar;
+    private Button summaryButton;
+    private Button sortButton;
+    private GridPane searchResultsGrid;
+    private StackPane detailsContainer;
+    private Pane searchContainer;
     
     // This is used for accesing the labels in the gridpane. Also useful for 
     // getting the name of the book or movie when opening 
@@ -52,6 +50,10 @@ public class MainViewController {
     
     private final int gridHeight = 5;
     private final int gridWidth = 2;
+
+    // Initialize MainView and SingleMediaView here.
+    private MainView mainView = new MainView();
+    private SingleMediaView singleMediaView = new SingleMediaView(detailsContainer);
     
     /**
      * Initializes the main view and creates an empty grid that will contain
@@ -59,32 +61,17 @@ public class MainViewController {
      * @throws IOException 
      */
     @FXML 
-    private void initialize() throws IOException {    
-        gridPaneArrayList = new ArrayList<>(gridHeight);
-        detailsContainer.setVisible(false);
-        
-        for (int i = 0; i < gridHeight; i++) {
-            ArrayList<Pair<Node, Media>> nodeList = new ArrayList<>();
-            
-            for (int j = 0; j < gridWidth; j++) {
-                Label emptyLabel = new Label("");
-                searchResultsGrid.add(emptyLabel, j, i);
-                nodeList.add(new Pair<> (emptyLabel, null));
-            }
-            gridPaneArrayList.add(nodeList);
-        }
-        searchResultsGrid.setVisible(false);
+    private void initialize() throws IOException {
+        mainView.initialize();
     }
     
     /**
-     * Handles the clicking of a node in the GridPane.
+     * Handles the clicking of a node in the GridPane. Passes the event to singelMediaView.
      * @param event A mouseclick.
      */
-    // This function was made with the help of ChatGPT, more specifically 
-    // the part where the coordinates of the grid node are acquired. 
-    // Leaving this comment so that we'll know where we used the AI.
     @FXML
     private void onGridNodeClicked(MouseEvent event) {
+        // TODO: There's a better way to get the right node.
         double mouseX = event.getX();
         double mouseY = event.getY();
         int clickedColumn = (int) (mouseX / (searchResultsGrid.getWidth() / searchResultsGrid.getColumnConstraints().size()));
@@ -92,24 +79,18 @@ public class MainViewController {
         
         // Here comes the code that opens the single media item view.
         Media singleMediaItem = gridPaneArrayList.get(clickedRow).get(clickedColumn).getValue();
-        
+
         if (singleMediaItem != null) {
-            searchContainer.setVisible(false);
-            detailsContainer.setVisible(true);
-            Map<String, String> movieDetails = Map.of(
-                "Title", singleMediaItem.getTitle(),
-                "Genres", "",
-                "Release Date", singleMediaItem.getReleaseDate(),
-                "Language", "",
-                "Rating", singleMediaItem.getRating().toString(),
-                "Length", "",
-                "Description", singleMediaItem.getDescription(),
-                "Director", "",
-                "Producer", "",
-                "Screenplay", ""
-            );
-            updateMovieDetails(movieDetails);
-        } 
+            searchContainer.setVisible(false); // Hide Search container
+            detailsContainer.setVisible(true); // Show Single media container
+            singleMediaView.onGridNodeClicked(singleMediaItem);
+        }
+    }
+
+    @FXML
+    private void onBackButtonClicked() {
+        detailsContainer.setVisible(false);
+        searchContainer.setVisible(true);
     }
     
     /**
