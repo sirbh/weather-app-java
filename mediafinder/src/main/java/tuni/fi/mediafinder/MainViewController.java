@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -92,23 +93,23 @@ public class MainViewController {
         // Here comes the code that opens the single media item view.
         Media singleMediaItem = gridPaneArrayList.get(clickedRow).get(clickedColumn).getValue();
         
-        searchContainer.setVisible(false);
-        detailsContainer.setVisible(true);
-        Map<String, String> movieDetails = Map.of(
-            "Title", singleMediaItem.getTitle(),
-            "Genres", "",
-            "Release Date", singleMediaItem.getReleaseDate(),
-            "Language", "",
-            "Rating", singleMediaItem.getRating().toString(),
-            "Length", "",
-            "Description", singleMediaItem.getDescription(),
-            "Director", "",
-            "Producer", "",
-            "Screenplay", ""
-        );
-
-        
-        updateMovieDetails(movieDetails);
+        if (singleMediaItem != null) {
+            searchContainer.setVisible(false);
+            detailsContainer.setVisible(true);
+            Map<String, String> movieDetails = Map.of(
+                "Title", singleMediaItem.getTitle(),
+                "Genres", "",
+                "Release Date", singleMediaItem.getReleaseDate(),
+                "Language", "",
+                "Rating", singleMediaItem.getRating().toString(),
+                "Length", "",
+                "Description", singleMediaItem.getDescription(),
+                "Director", "",
+                "Producer", "",
+                "Screenplay", ""
+            );
+            updateMovieDetails(movieDetails);
+        } 
     }
     
     /**
@@ -124,21 +125,26 @@ public class MainViewController {
 
             mediaItems = APIManager.searchMedia(searchField.getText(),
                     booksRadioButton.isSelected(), moviesRadioButton.isSelected());
-
+            
+            if (mediaItems.size() < gridHeight * gridWidth) {
+                
+            }
+            
             int index = 0;
             for (int i = 0; i < gridHeight; i++) {
-
                for (int j = 0; j < gridWidth; j++) {
-                   if (index >= mediaItems.size()) {
-                       break;
+                    if (index < mediaItems.size()) {
+                        Label newName = (Label) gridPaneArrayList.get(i).get(j).getKey();
+                        newName.setText(mediaItems.get(index).getTitle());
+                        Pair<Node, Media> newPair = 
+                                new Pair<> (gridPaneArrayList.get(i).get(j).getKey(), 
+                                        mediaItems.get(index));
+                        gridPaneArrayList.get(i).set(j, newPair);
+                        index++;
+                    }
+                    else {
+                        break;
                    }
-                   Label newName = (Label) gridPaneArrayList.get(i).get(j).getKey();
-                   newName.setText(mediaItems.get(index).getTitle());
-                   Pair<Node, Media> newPair = 
-                           new Pair<> (gridPaneArrayList.get(i).get(j).getKey(), 
-                                   mediaItems.get(index));
-                   gridPaneArrayList.get(i).set(j, newPair);
-                   index++;
                } 
             }
             searchResultsGrid.setVisible(true);
