@@ -1,5 +1,13 @@
 # MediaFinderPro
 
+### Building the project
+
+before building make sure maven is installed and working by running command `mvn --version`
+
+In project root `mediafinder` open terminal and run `mvn package`.
+
+Then to run project run `java -jar target\mediafinder-1.0.one-jar.jar`
+
 ### Branch Naming Rules
 
 A git branch should start with a category. Pick one of these: `feature`, `bugfix`, `hotfix`, or `test`.
