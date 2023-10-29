@@ -41,7 +41,7 @@ public class MainView {
 
     public void showSearchResults(ArrayList<Media> mediaItems) throws IOException {
         if (mediaItems.size() < gridHeight * gridWidth) {
-            // TODO: What is this?
+            // TODO: Something here?
         }
 
         int index = 0;
