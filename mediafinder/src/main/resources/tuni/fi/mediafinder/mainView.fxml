@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuni.fi.mediafinder.MainViewController">
+<ScrollPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuni.fi.mediafinder.Controller">
   <content>
     <AnchorPane>
          <children>
@@ -50,7 +50,8 @@
                   </GridPane>
                </children>
             </Pane>
-            <StackPane fx:id="detailsContainer" />
+            <StackPane fx:id="detailsContainer">
+            </StackPane>
          </children></AnchorPane>
   </content>
 </ScrollPane>
