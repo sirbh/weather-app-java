@@ -51,7 +51,7 @@
                </children>
             </Pane>
             <StackPane fx:id="detailsContainer">
-               <Button onMouseClicked="#onBackButtonClicked" text="Back" />
+               <Button onMouseClicked="#onBackButtonClicked" prefHeight="25.0" prefWidth="38.0" text="Back" />
             </StackPane>
          </children></AnchorPane>
   </content>

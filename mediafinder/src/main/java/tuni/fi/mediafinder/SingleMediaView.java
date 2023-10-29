@@ -15,24 +15,8 @@ import javafx.scene.text.Font;
 import tuni.fi.mediafinder.models.Media;
 
 public class SingleMediaView {
-    private StackPane detailsContainer;
-    public SingleMediaView(StackPane detailsContainer) {
-        this.detailsContainer = detailsContainer;
-    }
-
-    /**
-     * Handles the clicking of a node in the GridPane.
-     * @param event A mouseclick.
-     */
-    // This function was made with the help of ChatGPT, more specifically 
-    // the part where the coordinates of the grid node are acquired. 
-    // Leaving this comment so that we'll know where we used the AI.
-    public void onGridNodeClicked(Media singleMediaItem) {
-        Map<String, String> movieDetails = singleMediaItem.getVieableMap();
-        updateMovieDetails(movieDetails);
-    }
-
-    private void updateMovieDetails(Map<String, String> details) {
+    public void showSingleMediaItem(Media singleMediaItem, StackPane detailsContainer) {
+        Map<String, String> details = singleMediaItem.getVieableMap();
         detailsContainer.getChildren().clear(); // Clear existing children
 
         String movieTitle = details.getOrDefault("Title", "Title not available");
