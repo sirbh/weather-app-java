@@ -1,10 +1,10 @@
 # MediaFinderPro
 
-### Building the project
+### Running the project
 
-before building make sure maven is installed and working by running command `mvn --version`
+before running make sure `maven` is installed and working by running command `mvn --version`
 
-In project root `mediafinder` open terminal and run `mvn package`.
+To build the project go to the root of project `mediafinder` open terminal and run `mvn package`.
 
 Then to run project run `java -jar target\mediafinder-1.0.one-jar.jar`
 
