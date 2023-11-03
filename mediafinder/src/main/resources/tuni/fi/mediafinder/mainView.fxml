@@ -28,7 +28,7 @@
                      </font>
                   </Label>
                   <Button fx:id="sortButton" layoutX="863.0" layoutY="245.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="38.0" text="Sort" />
-                  <Button fx:id="summaryButton" layoutX="780.0" layoutY="245.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Summary" />
+                  <Button fx:id="summaryButton" layoutX="780.0" layoutY="245.0" mnemonicParsing="false" onAction="#switchToGraphView" prefHeight="25.0" prefWidth="66.0" text="Summary" />
                   <DatePicker fx:id="startDateCalendar" layoutX="512.0" layoutY="150.0" prefHeight="25.0" prefWidth="174.0" />
                   <DatePicker fx:id="endDateCalendar" layoutX="800.0" layoutY="150.0" prefHeight="25.0" prefWidth="174.0" />
                   <Label fx:id="startDateLabel" layoutX="450.0" layoutY="152.0" prefHeight="18.0" prefWidth="55.0" text="Start date:" />

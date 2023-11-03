@@ -1,7 +1,10 @@
 package tuni.fi.mediafinder;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +47,9 @@ public class Controller {
     // getting the name of the book or movie when opening 
     // a single media item view.
     public ArrayList<ArrayList<Pair<Node, Media>>> gridPaneArrayList = new ArrayList<>(gridHeight);
-
+    
+    public ArrayList<Media> mediaItems;
+    
     // Initialize MainView and SingleMediaView.
     public MainView mainView = new MainView(gridHeight, gridWidth);
     public SingleMediaView singleMediaView = new SingleMediaView();
@@ -58,15 +63,32 @@ public class Controller {
     public void initialize() throws IOException {
         detailsContainer.setVisible(false);
         mainView.initialize(gridPaneArrayList, searchResultsGrid);
+        summaryButton.setDisable(true);
     }
     
     @FXML
     private void search() throws IOException {
         detailsContainer.setVisible(false);
-        ArrayList<Media> mediaItems = APIManager.searchMedia(searchField.getText(),
+        this.mediaItems = APIManager.searchMedia(searchField.getText(),
                 booksRadioButton.isSelected(), moviesRadioButton.isSelected());
         mainView.showSearchResults(mediaItems);
+        summaryButton.setDisable(false);
     }
+    
+    @FXML
+    private void switchToGraphView() throws IOException {
+        LocalDate sld = this.startDateCalendar.getValue();
+        LocalDate eld = this.endDateCalendar.getValue();
+
+        int startYear = sld == null ? 1900 : sld.getYear();
+        int endYear = eld == null ? Year.now().getValue() : eld.getYear();
+        
+        
+        GraphViewController.setDates(startYear, endYear);
+        GraphViewController.setMediaItems(this.mediaItems);
+        App.setRoot("graphView");
+    }
+    
     /**
      * Checks if the radio button for movies is enabled when trying to disable 
      * the radio button for books. If it is enabled, then the function does nothing.
