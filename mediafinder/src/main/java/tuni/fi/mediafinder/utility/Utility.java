@@ -4,6 +4,9 @@
  */
 package tuni.fi.mediafinder.utility;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author knsach
@@ -13,5 +16,14 @@ public class Utility {
         BOOK,
         MOVIE
     }
-}
 
+    public static boolean checkDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate.parse(dateStr, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}

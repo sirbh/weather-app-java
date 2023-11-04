@@ -9,7 +9,7 @@ import java.util.List;
 public class GoogleBooksResponse extends APIResponse {
     private int totalItems;
     private String kind;
-    private ArrayList<BookItem> items = new ArrayList<>();
+    private ArrayList<BookItem> items;
 
     private static class BookItem {
         private String id;
@@ -78,6 +78,10 @@ public class GoogleBooksResponse extends APIResponse {
                 ", items=" + items +
                 '}';
     }
+    
+    public int getTotalItems(){
+        return totalItems;
+    }
 
     public ArrayList<Media> build() {
         ArrayList<Media> books = new ArrayList<>();
@@ -88,3 +92,4 @@ public class GoogleBooksResponse extends APIResponse {
         return books;
     }
 }
+

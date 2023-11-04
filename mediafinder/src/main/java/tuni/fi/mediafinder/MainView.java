@@ -1,6 +1,7 @@
 package tuni.fi.mediafinder;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 
 import javafx.scene.Node;
@@ -39,7 +40,7 @@ public class MainView {
         searchResultsGrid.setVisible(false);
     }
 
-    public void showSearchResults(ArrayList<Media> mediaItems) throws IOException {
+    public void showSearchResults(List<Media> mediaItems) throws IOException {
         if (mediaItems.size() < gridHeight * gridWidth) {
             // TODO: Something here?
         }

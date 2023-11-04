@@ -1,27 +1,40 @@
 package tuni.fi.mediafinder.apimanager.mapping;
 
-public class GoogleBooksNamespace extends APINamespace {
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+public class GoogleBooksNamespace {
+
     private static final String GB_URL = "https://www.googleapis.com/books/v1/volumes?";
-    private static final String AUTH = "";
+    private static final String AUTH_KEY = "&key=AIzaSyD1Z9BeavtwtIppdFp5T8XX83QnF9L50jc";
     private static final String SEARCH_STRING_QUERY_KEY = "q";
-    public static final int BOOKS_PER_PAGE = 40;
-    public static final String SPACE_ENCODING = "%20";
-    public String getBaseUrl() {
-        return GB_URL;
+    private static final int BOOKS_PER_PAGE = 10;
+    private static final String MAX_RESULTS_QUERY_KEY = "maxResults";
+    private static final String START_INDEX_QUERY_KEY = "startIndex";
+    private static final String PRINT_TYPE_KEY = "printType";
+
+    public static String bookSearchUrl(String query) {
+        String encodedQuery = "";
+        try {
+            encodedQuery = URLEncoder.encode(query, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("Error encoding URL parameters: " + e.getMessage());
+        }
+        return GB_URL+SEARCH_STRING_QUERY_KEY+"="+encodedQuery;
     }
 
-    public String getAuthenticationToken() {
-        return AUTH;
+    public static String bookSearchUrl(String query, int numberOfBooks) {
+        String encodedQuery = "";
+        try {
+            encodedQuery = URLEncoder.encode(query, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("Error encoding URL parameters: " + e.getMessage());
+        }
+        return GB_URL+SEARCH_STRING_QUERY_KEY+"="+encodedQuery+"&"+START_INDEX_QUERY_KEY+"="+0+"&"+MAX_RESULTS_QUERY_KEY+"="+numberOfBooks+"&"+PRINT_TYPE_KEY+"=books"+AUTH_KEY;
     }
-
-    public String getSearchStringQueryKey() {
-        return SEARCH_STRING_QUERY_KEY;
-    }
-
-    public String getPageQuery(int pageNumber) {
-        return "startIndex=" + pageNumber * BOOKS_PER_PAGE + "&maxResults=" + BOOKS_PER_PAGE;
-    }
-    public String getSpaceEncoding() {
-        return SPACE_ENCODING;
+    
+    public static String getAuthKey(){
+        return AUTH_KEY;
     }
 }
+

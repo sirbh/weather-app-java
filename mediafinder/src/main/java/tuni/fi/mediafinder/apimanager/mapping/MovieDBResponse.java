@@ -1,6 +1,5 @@
 package tuni.fi.mediafinder.apimanager.mapping;
 
-import tuni.fi.mediafinder.models.Book;
 import tuni.fi.mediafinder.models.Media;
 import tuni.fi.mediafinder.models.Movie;
 
@@ -8,7 +7,9 @@ import java.util.ArrayList;
 
 public class MovieDBResponse extends APIResponse {
     private int page;
-    private ArrayList<MovieItem> results = new ArrayList<>();
+    private ArrayList<MovieItem> results;
+    private int total_results;
+    private int total_pages;
 
     private static class MovieItem {
         private String getId() {
@@ -38,6 +39,14 @@ public class MovieDBResponse extends APIResponse {
         private String release_date;
         private Double vote_average;
         private int vote_count;
+    }
+    
+    public int getTotalItems(){
+      return total_results;
+    }
+
+    public int getTotalPages(){
+      return total_pages;
     }
 
     public ArrayList<Media> build() {

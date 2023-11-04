@@ -5,7 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import tuni.fi.mediafinder.models.Media;
+import tuni.fi.mediafinder.utility.MediaUtility;
+
 import java.io.IOException;
+import java.util.List;
 
 /**
  * JavaFX App
@@ -32,5 +36,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+        // List<Media> mediaList = MediaUtility.getMediasByQuery("Harry Potter");
+        // mediaList.stream().forEach(item->System.out.println(item.getRating()+" "+item.getReleaseDate()+" "+item.getMediaType()+" "+item.getTitle()));
     }
 }

@@ -25,7 +25,7 @@ public class Book implements Media {
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
-        this.rating = rating != null ? 2 * rating : 0;
+        this.rating = rating;
     }
 
     public Double getRating() {

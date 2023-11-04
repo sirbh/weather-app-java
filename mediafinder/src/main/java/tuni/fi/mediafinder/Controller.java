@@ -3,6 +3,7 @@ package tuni.fi.mediafinder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,6 +25,7 @@ import javafx.scene.text.Font;
 import javafx.util.Pair;
 import tuni.fi.mediafinder.apimanager.http.APIManager;
 import tuni.fi.mediafinder.models.Media;
+import tuni.fi.mediafinder.utility.MediaUtility;
 
 public class Controller {
     public TextField searchField;
@@ -63,8 +65,7 @@ public class Controller {
     @FXML
     private void search() throws IOException {
         detailsContainer.setVisible(false);
-        ArrayList<Media> mediaItems = APIManager.searchMedia(searchField.getText(),
-                booksRadioButton.isSelected(), moviesRadioButton.isSelected());
+        List<Media> mediaItems = MediaUtility.getMediasByQuery(searchField.getText(),1,10);
         mainView.showSearchResults(mediaItems);
     }
     /**
