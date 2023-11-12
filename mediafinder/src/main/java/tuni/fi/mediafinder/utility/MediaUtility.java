@@ -30,10 +30,11 @@ public class MediaUtility {
     }
 
     public static List<Media> getMediasByQuery(String query,int startIndex,int endIndex) {
-        List<Media> medias = getMediaByTitle(query).stream().filter(media -> Utility.checkDate(media.getReleaseDate()))
+        List<Media> medias = getMediaByTitle(query).stream()
+                                                     .filter(media -> Utility.checkDate(media.getReleaseDate()))
                                                    .filter(media->media.getRating()!=null)
-                                                   .collect(Collectors.toList())
-                                                   .subList(startIndex, endIndex);
+                                                   .collect(Collectors.toList());
+                                                //    .subList(startIndex, endIndex);
 
         return medias;
     }

@@ -1,57 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuni.fi.mediafinder.Controller">
-  <content>
-    <AnchorPane>
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuni.fi.mediafinder.controllers.MainController">
+
+   <children>
+      <Pane fx:id="searchPane" prefHeight="650.0" prefWidth="980.0">
          <children>
-            <Pane fx:id="searchContainer">
-               <children>
-                  <TextField fx:id="searchField" layoutX="250.0" layoutY="190.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="651.0" promptText="Search..." />
-                  <Button fx:id="searchButton" layoutX="901.0" layoutY="190.0" onAction="#search" prefHeight="34.0" prefWidth="73.0" text="Search" />
-                  <Label fx:id="logoLabel" layoutX="41.0" layoutY="39.0" prefHeight="84.0" prefWidth="209.0" text="MediaFinder">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="sortButton" layoutX="863.0" layoutY="245.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="38.0" text="Sort" />
-                  <Button fx:id="summaryButton" layoutX="780.0" layoutY="245.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Summary" />
-                  <DatePicker fx:id="startDateCalendar" layoutX="512.0" layoutY="150.0" prefHeight="25.0" prefWidth="174.0" />
-                  <DatePicker fx:id="endDateCalendar" layoutX="800.0" layoutY="150.0" prefHeight="25.0" prefWidth="174.0" />
-                  <Label fx:id="startDateLabel" layoutX="450.0" layoutY="152.0" prefHeight="18.0" prefWidth="55.0" text="Start date:" />
-                  <Label fx:id="endDateLabel" layoutX="740.0" layoutY="152.0" prefHeight="18.0" prefWidth="50.0" text="End date:" />
-                  <RadioButton fx:id="moviesRadioButton" layoutX="695.0" layoutY="244.0" mnemonicParsing="false" onAction="#checkIfBooksRadioButtonEnabled" prefHeight="25.0" prefWidth="59.0" selected="true" text="Movies" />
-                  <RadioButton fx:id="booksRadioButton" layoutX="625.0" layoutY="244.0" mnemonicParsing="false" onAction="#checkIfMoviesRadioButtonEnabled" prefHeight="25.0" prefWidth="53.0" text="Books" />
-                  <GridPane fx:id="searchResultsGrid" gridLinesVisible="true" layoutX="194.0" layoutY="290.0" onMouseClicked="#onGridNodeClicked" prefHeight="430.0" prefWidth="863.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                  </GridPane>
-               </children>
-            </Pane>
-            <StackPane fx:id="detailsContainer">
-            </StackPane>
-         </children></AnchorPane>
-  </content>
-</ScrollPane>
+            <Label fx:id="loader" layoutX="460.0" layoutY="400.0" />
+            <CheckBox layoutX="345.0" layoutY="195.0" mnemonicParsing="false" text="Movie" />
+            <CheckBox layoutX="452.0" layoutY="195.0" mnemonicParsing="false" text="Book" />
+            <TextField fx:id="mediaSearchField" layoutX="181.0" layoutY="143.0" onAction="#search" prefHeight="29.0" prefWidth="489.0" promptText="search media" />
+            <TableView fx:id="tableView" layoutX="99.0" layoutY="236.0" prefHeight="371.0" prefWidth="706.0">
+              <columns>
+                <TableColumn minWidth="0.0" prefWidth="0.0" text="Release Date" />
+                  <TableColumn fx:id="titleColumn" prefWidth="259.3333282470703" text="Title" />
+                  <TableColumn fx:id="ratingColumn" prefWidth="114.6666259765625" text="Rating" />
+                  <TableColumn fx:id="mediaTypeColumn" prefWidth="186.6666259765625" text="Media Type" />
+                  <TableColumn fx:id="releaseDateColumn" prefWidth="143.33334350585938" text="Release Date" />
+              </columns>
+            </TableView>
+            <Button fx:id="searchButton" layoutX="686.0" layoutY="143.0" mnemonicParsing="false" onAction="#search" text="Search" />
+         </children></Pane>
+      <StackPane fx:id="singleMediaPane" prefHeight="650.0" prefWidth="980.0" />
+   </children>
+</Pane>
