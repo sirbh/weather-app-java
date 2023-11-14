@@ -35,8 +35,9 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        MediaUtility.getMediaByReleaseYear("harry potter");
+        MediaUtility.getMediaByRatings("harry potter");
         launch();
-        // List<Media> mediaList = MediaUtility.getMediasByQuery("Harry Potter");
-        // mediaList.stream().forEach(item->System.out.println(item.getRating()+" "+item.getReleaseDate()+" "+item.getMediaType()+" "+item.getTitle()));
+
     }
 }

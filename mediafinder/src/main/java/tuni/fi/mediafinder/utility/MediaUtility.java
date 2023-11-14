@@ -7,6 +7,11 @@ import java.util.stream.Collectors;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class MediaUtility {
 
@@ -29,14 +34,94 @@ public class MediaUtility {
         return medias;
     }
 
-    public static List<Media> getMediasByQuery(String query,int startIndex,int endIndex) {
+    public static List<Media> getMediasByQuery(String query, int startIndex, int endIndex) {
+
         List<Media> medias = getMediaByTitle(query).stream()
-                                                     .filter(media -> Utility.checkDate(media.getReleaseDate()))
-                                                   .filter(media->media.getRating()!=null)
-                                                   .collect(Collectors.toList());
-                                                //    .subList(startIndex, endIndex);
+                .filter(media -> Utility.checkDate(media.getReleaseDate()))
+                .filter(media -> media.getRating() != null)
+                .map(media -> {
+                    if (media.getMediaType().equals(Utility.MediaType.BOOK)) {
+                        media.setRating(media.getRating() * 2);
+                    }
+                    return media;
+                })
+                .collect(Collectors.toList());
+        // .subList(startIndex, endIndex);
 
         return medias;
+    }
+
+    public static Map<Utility.MediaType, Map<String, Long>> getMediaByRatings(String query) {
+
+        Map<Utility.MediaType, Map<String, Long>> groupedByRatingRange = getMediaByTitle(query).stream()
+                .filter(media -> Utility.checkDate(media.getReleaseDate()))
+                .filter(media -> media.getRating() != null)
+                .map(media -> {
+                    if (media.getMediaType().equals(Utility.MediaType.BOOK)) {
+                        media.setRating(media.getRating() * 2);
+                    }
+                    return media;
+                })
+                .collect(
+                        Collectors.groupingBy(
+                                Media::getMediaType,
+                                Collectors.toMap(
+                                        media -> getRatingRange(media.getRating()),
+                                        media -> 1L,
+                                        Long::sum,
+                                        TreeMap::new // Use TreeMap to keep keys sorted
+                                )));
+        groupedByRatingRange.forEach((type, ratingCounts) -> {
+            for (int i = 0; i <= 8; i += 2) {
+                String range = i + "-" + (i + 2);
+                ratingCounts.putIfAbsent(range, 0L);
+            }
+        });
+
+
+        return groupedByRatingRange;
+    }
+
+    private static String getRatingRange(double rating) {
+        if (rating <= 2) {
+            return "0-2";
+        } else if (rating <= 4) {
+            return "2-4";
+        } else if (rating <= 6) {
+            return "4-6";
+        } else if (rating <= 8) {
+            return "6-8";
+        } else if (rating <= 10) {
+            return "8-10";
+        } else {
+            return "0-2";
+        }
+    }
+
+    public static Map<Utility.MediaType, Map<String, Long>> getMediaByReleaseYear(String query) {
+
+       Map<Utility.MediaType, Map<String, Long>> groupedByYear = getMediaByTitle(query).stream()
+                .filter(media -> Utility.checkDate(media.getReleaseDate()))
+                .filter(media -> media.getRating() != null)
+                .map(media -> {
+                    if (media.getMediaType().equals(Utility.MediaType.BOOK)) {
+                        media.setRating(media.getRating() * 2);
+                    }
+                    return media;
+                })
+                .collect(
+                        Collectors.groupingBy(
+                                Media::getMediaType,
+                                Collectors.toMap(
+                                        media -> media.getReleaseDate().substring(0, 4),
+                                        media -> 1L,
+                                        Long::sum,
+                                        TreeMap::new // Use TreeMap to keep keys sorted
+                                )));
+        
+
+
+        return groupedByYear;
     }
 
 }

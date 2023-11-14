@@ -18,7 +18,7 @@ public class Movie implements Media {
     private final Utility.MediaType mediaType = Utility.MediaType.MOVIE;
     private final String title;
     private final String description;
-    private final Double rating;
+    private Double rating;
 
     public Movie(String id, String title, String description, String releaseDate, Double rating) {
         this.id = id;
@@ -47,6 +47,10 @@ public class Movie implements Media {
 
     public Double getRating() {
         return rating;
+    }
+    @Override
+    public void setRating(Double rating) {
+        this.rating=rating; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

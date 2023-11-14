@@ -18,6 +18,7 @@ public interface Media {
     String getDescription();
     String getReleaseDate();
     Double getRating();
+    void setRating(Double rating);
     Utility.MediaType getMediaType();
     Map<String, String> getVieableMap();
 }
