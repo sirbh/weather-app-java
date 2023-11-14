@@ -35,8 +35,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        MediaUtility.getMediaByReleaseYear("harry potter");
-        MediaUtility.getMediaByRatings("harry potter");
+        System.out.println(MediaUtility.getMediaByReleaseYear("harry potter"));
+        System.out.println(MediaUtility.getMediaByRatings("harry potter"));
         launch();
 
     }
