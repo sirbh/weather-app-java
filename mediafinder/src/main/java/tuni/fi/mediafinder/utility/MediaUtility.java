@@ -19,8 +19,6 @@ public class MediaUtility {
         List<Media> medias = APIManager.searchBooks(query, 40).build();
 
         int totalMoviesPageResult = APIManager.searchMovies(query, 1).getTotalPages();
-        System.out.println(totalMoviesPageResult);
-        System.out.println(APIManager.searchBooks(query, 40).getTotalItems());
         if (totalMoviesPageResult > 2) {
             for (int i = 1; i <= 3; i++) {
                 medias.addAll(APIManager.searchMovies(query, i).build());
@@ -34,8 +32,10 @@ public class MediaUtility {
         return medias;
     }
 
-    public static List<Media> getMediasByQuery(String query, int startIndex, int endIndex) {
-
+    public static List<Media> getMediasByQuery(String query, boolean isMovie, boolean isBook, LocalDate startDate, LocalDate endDate) {
+        if(query == null || query.isEmpty()) {
+            return new ArrayList<>();
+        }
         List<Media> medias = getMediaByTitle(query).stream()
                 .filter(media -> Utility.checkDate(media.getReleaseDate()))
                 .filter(media -> media.getRating() != null)
@@ -44,6 +44,24 @@ public class MediaUtility {
                         media.setRating(media.getRating() * 2);
                     }
                     return media;
+                })
+                .filter(media-> {
+                    if (isMovie && isBook) {
+                        return true;
+                    } else if (isMovie) {
+                        return media.getMediaType().equals(Utility.MediaType.MOVIE);
+                    } else if (isBook) {
+                        return media.getMediaType().equals(Utility.MediaType.BOOK);
+                    } else {
+                        return false;
+                    }
+                })
+                .filter(media->{
+                    if (startDate == null || endDate == null) {
+                        return true;
+                    } else {
+                        return Utility.pasrseDate(media.getReleaseDate()).isAfter(startDate) && Utility.pasrseDate(media.getReleaseDate()).isBefore(endDate);
+                    } 
                 })
                 .collect(Collectors.toList());
         // .subList(startIndex, endIndex);

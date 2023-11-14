@@ -26,4 +26,14 @@ public class Utility {
             return false;
         }
     }
+
+    public static LocalDate pasrseDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDate.parse(dateStr, formatter);
+        } catch (Exception e) {
+            System.out.println(e);
+            return LocalDate.now();
+        }
+    }
 }

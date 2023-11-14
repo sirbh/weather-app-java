@@ -11,16 +11,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.input.MouseButton;
-import tuni.fi.mediafinder.App;
 import tuni.fi.mediafinder.models.Media;
 import tuni.fi.mediafinder.utility.MediaUtility;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.control.Label;
 
 public class MainController {
 
@@ -51,11 +50,23 @@ public class MainController {
     @FXML
     private TableColumn<Media, String> mediaTypeColumn;
 
+    @FXML
+    private CheckBox movieCheck;
+
+    @FXML
+    private CheckBox bookCheck;
+
+    @FXML
+    private DatePicker startDate;
+
+    @FXML
+    private DatePicker endDate;
+
 
     @FXML
     public void search() throws IOException {
-
-        List<Media> mediaList = MediaUtility.getMediasByQuery(mediaSearchField.getText(), 1, 10);
+        
+        List<Media> mediaList = MediaUtility.getMediasByQuery(mediaSearchField.getText(), movieCheck.isSelected(), bookCheck.isSelected(),startDate.getValue(), endDate.getValue());
 
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         releaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
@@ -69,11 +80,11 @@ public class MainController {
 
     public void initialize() throws IOException {
         singleMediaPane.setVisible(false);
+        bookCheck.setSelected(true);
+        movieCheck.setSelected(true);
         tableView.setOnMouseClicked(event -> {
-
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1 &&  !(event.getTarget() instanceof TableColumnHeader)) {
                 Media selectedMedia = tableView.getSelectionModel().getSelectedItem();
-                System.out.println(event.getPickResult());
                 if (selectedMedia != null) {
                     searchPane.setVisible(false);
                     singleMediaPane.setVisible(true);
@@ -81,5 +92,23 @@ public class MainController {
                 }
             }
         });
+
+
     }
+    
+    @FXML
+    public void checkBoxClickHandler() throws IOException {
+       search();
+    }
+
+    @FXML
+    public void onDateSelect() throws IOException {
+        search();
+    }   
+
+    @FXML
+    public void onDatePickerKeyPressed() throws IOException {
+        startDate.setValue(null);
+        endDate.setValue(null);
+    }   
 }

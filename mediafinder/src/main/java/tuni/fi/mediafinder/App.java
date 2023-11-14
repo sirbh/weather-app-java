@@ -38,6 +38,5 @@ public class App extends Application {
         System.out.println(MediaUtility.getMediaByReleaseYear("harry potter"));
         System.out.println(MediaUtility.getMediaByRatings("harry potter"));
         launch();
-
     }
 }

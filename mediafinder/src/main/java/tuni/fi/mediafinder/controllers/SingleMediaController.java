@@ -49,7 +49,6 @@ public class SingleMediaController {
 
         int rowIndex = 0;
         for (Map.Entry<String, String> entry : details.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
             String labelText = entry.getKey();
             String mapKey = entry.getValue();
             if (labelText.equals("Title") || labelText.equals("Genres")) {
