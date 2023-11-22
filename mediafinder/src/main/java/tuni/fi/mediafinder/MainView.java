@@ -2,7 +2,6 @@ package tuni.fi.mediafinder;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.util.Pair;
