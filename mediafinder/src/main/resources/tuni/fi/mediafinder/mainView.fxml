@@ -10,10 +10,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuni.fi.mediafinder.controllers.MainController">
 
    <children>
+   
       <Pane fx:id="searchPane" prefHeight="650.0" prefWidth="980.0">
          <children>
             <Label fx:id="loader" layoutX="460.0" layoutY="400.0" />
@@ -40,7 +43,34 @@
                </font>
             </Label>
             <Label fx:id="errorMessage" layoutX="388.0" layoutY="89.0" textFill="#d01414" />
-         </children></Pane>
+         </children>
+      </Pane>
+
       <StackPane fx:id="singleMediaPane" prefHeight="650.0" prefWidth="980.0" />
+
+      <AnchorPane fx:id="graphContainer">
+            <children>
+               <TabPane prefHeight="720.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
+               <tabs>
+                  <Tab closable="false" text="Amount per Rating">
+                     <content>
+                     <AnchorPane fx:id="ratingsTab">
+                     </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Amount per Year">
+                     <content>
+                     <AnchorPane fx:id="yearsTab">
+                     </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+               </TabPane>
+            </children>
+            <children>
+                  <Button layoutX="14.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToMainView" text="Back" />
+            </children>
+      </AnchorPane>
+
    </children>
 </Pane>
