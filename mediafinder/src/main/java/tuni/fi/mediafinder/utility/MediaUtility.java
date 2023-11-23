@@ -136,9 +136,7 @@ public class MediaUtility {
                                         Long::sum,
                                         TreeMap::new // Use TreeMap to keep keys sorted
                                 )));
-        
-
-
+                                
         return groupedByYear;
     }
 

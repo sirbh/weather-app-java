@@ -2,6 +2,7 @@ package tuni.fi.mediafinder.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.input.MouseButton;
 import tuni.fi.mediafinder.models.Media;
 import tuni.fi.mediafinder.utility.MediaUtility;
+import tuni.fi.mediafinder.utility.Utility;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.CheckBox;
@@ -20,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 
 public class MainController {
 
@@ -62,6 +65,14 @@ public class MainController {
     @FXML
     private DatePicker endDate;
 
+    @FXML
+    private AnchorPane graphAnchorPane;
+
+    @FXML
+    private AnchorPane ratingsTab;
+
+    @FXML
+    private AnchorPane yearsTab;
 
     @FXML
     public void search() throws IOException {
@@ -80,6 +91,7 @@ public class MainController {
 
     public void initialize() throws IOException {
         singleMediaPane.setVisible(false);
+        graphAnchorPane.setVisible(false);
         bookCheck.setSelected(true);
         movieCheck.setSelected(true);
         tableView.setOnMouseClicked(event -> {
@@ -111,4 +123,23 @@ public class MainController {
         startDate.setValue(null);
         endDate.setValue(null);
     }   
+
+    @FXML
+    public void switchToMainView() throws IOException {
+        searchPane.setVisible(true);
+        singleMediaPane.setVisible(false);
+        graphAnchorPane.setVisible(false);
+    }
+
+    @FXML
+    public void summary() throws IOException {
+        searchPane.setVisible(false);
+        singleMediaPane.setVisible(false);
+        graphAnchorPane.setVisible(true);
+        // The query is not saved anywhere so getting text from search input for now
+        // Could use media data from tableView maybe?
+        Map<Utility.MediaType, Map<String, Long>> releaseYearData = MediaUtility.getMediaByReleaseYear(mediaSearchField.getText());
+        Map<Utility.MediaType, Map<String, Long>> ratingData = MediaUtility.getMediaByRatings(mediaSearchField.getText());
+        GraphViewController.plotGraphs(releaseYearData, ratingData, ratingsTab, yearsTab);
+    }
 }
