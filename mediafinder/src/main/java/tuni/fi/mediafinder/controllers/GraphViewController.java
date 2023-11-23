@@ -32,8 +32,8 @@ public class GraphViewController {
     private static BarChart createBarChart(Map<Utility.MediaType, Map<String, Long>> data, String xAxisLabel, String yAxisLabel) {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Year");
-        yAxis.setLabel("Count");
+        xAxis.setLabel(xAxisLabel);
+        yAxis.setLabel(yAxisLabel);
 
         // Create the BarChart
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
