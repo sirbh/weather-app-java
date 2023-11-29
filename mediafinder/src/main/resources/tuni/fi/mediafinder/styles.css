@@ -1,0 +1,23 @@
+/*
+white:      #fff
+deep-blue:  #1c7c80
+black:      #08393b
+*/
+
+.filter-button {
+    -fx-background-color: #fff;
+    -fx-background-radius: 10;
+    -fx-border-color: #1c7c80;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-insets: 1;
+}
+
+.search-button {
+    -fx-background-color: #fff;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-border-width: 2;
+    -fx-border-color: #08393b;
+    -fx-background-insets: 1;
+}
