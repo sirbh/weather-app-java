@@ -31,7 +31,7 @@
                   <TableColumn fx:id="releaseDateColumn" prefWidth="143.33334350585938" text="Release Date" />
               </columns>
             </TableView>
-            <Button fx:id="searchButton" layoutX="683.0" layoutY="164.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="83.0" styleClass="search-button" stylesheets="@styles.css" text="Search" />
+            <Button fx:id="searchButton" layoutX="683.0" layoutY="164.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="83.0" styleClass="search-button" text="Search" />
             <Button fx:id="searchButton" layoutX="775.0" layoutY="164.0" mnemonicParsing="false" onAction="#summary" prefHeight="29.0" prefWidth="137.0" styleClass="search-button" text="Summary" />
             <DatePicker fx:id="startDate" layoutX="388.0" layoutY="120.0" onAction="#onDateSelect" onKeyReleased="#onDatePickerKeyPressed" prefHeight="29.0" prefWidth="129.0" promptText=" start date" />
             <DatePicker fx:id="endDate" layoutX="550.0" layoutY="120.0" onAction="#onDateSelect" onKeyReleased="#onDatePickerKeyPressed" prefHeight="29.0" prefWidth="120.0" promptText="end date" />
@@ -52,22 +52,6 @@
 
       <AnchorPane fx:id="graphAnchorPane">
             <children>
-               <TabPane prefHeight="720.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
-               <tabs>
-                  <Tab closable="false" text="Amount per Rating">
-                     <content>
-                     <AnchorPane fx:id="ratingsTab">
-                     </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Amount per Year">
-                     <content>
-                     <AnchorPane fx:id="yearsTab">
-                     </AnchorPane>
-                     </content>
-                  </Tab>
-               </tabs>
-               </TabPane>
             </children>
             <children>
                   <Button layoutX="112.0" layoutY="585.0" mnemonicParsing="false" onAction="#switchToMainView" prefHeight="29.0" prefWidth="180.0" styleClass="filter-button" text="Back" />
