@@ -5,11 +5,7 @@ import tuni.fi.mediafinder.apimanager.http.APIManager;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
