@@ -12,5 +12,5 @@ module tuni.fi.mediafinder {
     requires org.json;
     requires com.google.gson;
     opens tuni.fi.mediafinder.apimanager.mapping to com.google.gson;
-    opens tuni.fi.mediafinder.models to javafx.base;
+    opens tuni.fi.mediafinder.models to javafx.base, com.google.gson;
 }
