@@ -1,6 +1,9 @@
 package tuni.fi.mediafinder.controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.input.MouseButton;
 import tuni.fi.mediafinder.models.Media;
+import tuni.fi.mediafinder.models.Preference;
+import tuni.fi.mediafinder.utility.JsonUtil;
 import tuni.fi.mediafinder.utility.MediaUtility;
 import tuni.fi.mediafinder.utility.Utility;
 import javafx.scene.control.Button;
@@ -78,6 +83,9 @@ public class MainController {
     private TabPane graphTabs;
 
     @FXML
+    private Button graphBackBtn;
+
+    @FXML
     public void search() throws IOException {
 
         List<Media> mediaList = MediaUtility.getMediasByQuery(mediaSearchField.getText(), movieCheck.isSelected(),
@@ -113,20 +121,21 @@ public class MainController {
         singleMediaPane.setPrefWidth(980);
         graphAnchorPane.setPrefHeight(650);
         graphAnchorPane.setPrefWidth(980);
-        graphTabs.setPrefHeight(650);
+        graphTabs.setPrefHeight(590);
         graphTabs.setPrefWidth(980);
-
+        graphBackBtn.setTranslateX(30);
+        graphBackBtn.setTranslateY(600);
 
     }
 
     @FXML
     public void checkBoxClickHandler() throws IOException {
-        search();
+    // search();
     }
 
     @FXML
     public void onDateSelect() throws IOException {
-        search();
+    // search();
     }
 
     @FXML
@@ -154,5 +163,29 @@ public class MainController {
         Map<Utility.MediaType, Map<String, Long>> ratingData = MediaUtility
                 .getMediaByRatings(mediaSearchField.getText());
         GraphViewController.plotGraphs(releaseYearData, ratingData, ratingsTab, yearsTab);
+    }
+
+    @FXML
+    public void savePreference() {
+        String searchQuery = this.mediaSearchField.getText();
+        boolean movieChecked = this.movieCheck.isSelected();
+        boolean bookChecked = this.bookCheck.isSelected();
+        String startDate = this.startDate.getValue()!=null?this.startDate.getValue().toString():"";
+        String endDate = this.endDate.getValue()!=null?this.endDate.getValue().toString():"";
+
+        Preference preference = new Preference(searchQuery, movieChecked, bookChecked, startDate, endDate);
+        JsonUtil.savePreferences(preference);
+    }
+
+    @FXML
+    public void loadPreference() {
+        Preference preference = JsonUtil.loadPreferences();
+        if (preference != null) {
+            this.mediaSearchField.setText(preference.getSearchQuery());
+            this.movieCheck.setSelected(preference.isMovieChecked());
+            this.bookCheck.setSelected(preference.isBookChecked());
+            this.startDate.setValue(Utility.pasrseDate(preference.getStartDate()));
+            this.endDate.setValue(Utility.pasrseDate(preference.getEndDate()));
+        }
     }
 }
