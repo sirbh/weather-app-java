@@ -7,7 +7,6 @@ import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.TableColumnHeader;
@@ -23,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TabPane;
 
 public class MainController {
 
@@ -75,9 +75,13 @@ public class MainController {
     private AnchorPane yearsTab;
 
     @FXML
+    private TabPane graphTabs;
+
+    @FXML
     public void search() throws IOException {
-        
-        List<Media> mediaList = MediaUtility.getMediasByQuery(mediaSearchField.getText(), movieCheck.isSelected(), bookCheck.isSelected(),startDate.getValue(), endDate.getValue());
+
+        List<Media> mediaList = MediaUtility.getMediasByQuery(mediaSearchField.getText(), movieCheck.isSelected(),
+                bookCheck.isSelected(), startDate.getValue(), endDate.getValue());
 
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         releaseDateColumn.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
@@ -95,7 +99,8 @@ public class MainController {
         bookCheck.setSelected(true);
         movieCheck.setSelected(true);
         tableView.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1 &&  !(event.getTarget() instanceof TableColumnHeader)) {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1
+                    && !(event.getTarget() instanceof TableColumnHeader)) {
                 Media selectedMedia = tableView.getSelectionModel().getSelectedItem();
                 if (selectedMedia != null) {
                     searchPane.setVisible(false);
@@ -104,25 +109,31 @@ public class MainController {
                 }
             }
         });
+        singleMediaPane.setPrefHeight(650);
+        singleMediaPane.setPrefWidth(980);
+        graphAnchorPane.setPrefHeight(650);
+        graphAnchorPane.setPrefWidth(980);
+        graphTabs.setPrefHeight(650);
+        graphTabs.setPrefWidth(980);
 
 
     }
-    
+
     @FXML
     public void checkBoxClickHandler() throws IOException {
-       search();
+        search();
     }
 
     @FXML
     public void onDateSelect() throws IOException {
         search();
-    }   
+    }
 
     @FXML
     public void onDatePickerKeyPressed() throws IOException {
         startDate.setValue(null);
         endDate.setValue(null);
-    }   
+    }
 
     @FXML
     public void switchToMainView() throws IOException {
@@ -138,8 +149,10 @@ public class MainController {
         graphAnchorPane.setVisible(true);
         // The query is not saved anywhere so getting text from search input for now
         // Could use media data from tableView maybe?
-        Map<Utility.MediaType, Map<String, Long>> releaseYearData = MediaUtility.getMediaByReleaseYear(mediaSearchField.getText());
-        Map<Utility.MediaType, Map<String, Long>> ratingData = MediaUtility.getMediaByRatings(mediaSearchField.getText());
+        Map<Utility.MediaType, Map<String, Long>> releaseYearData = MediaUtility
+                .getMediaByReleaseYear(mediaSearchField.getText());
+        Map<Utility.MediaType, Map<String, Long>> ratingData = MediaUtility
+                .getMediaByRatings(mediaSearchField.getText());
         GraphViewController.plotGraphs(releaseYearData, ratingData, ratingsTab, yearsTab);
     }
 }
