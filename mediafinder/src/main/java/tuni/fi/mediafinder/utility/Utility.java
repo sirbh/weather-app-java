@@ -33,7 +33,7 @@ public class Utility {
             return LocalDate.parse(dateStr, formatter);
         } catch (Exception e) {
             System.out.println(e);
-            return LocalDate.now();
+            return null;
         }
     }
 }
