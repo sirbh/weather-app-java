@@ -4,6 +4,8 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -22,7 +24,7 @@
             <CheckBox fx:id="movieCheck" layoutX="336.0" layoutY="215.0" mnemonicParsing="false" onAction="#checkBoxClickHandler" text="Movie" />
             <CheckBox fx:id="bookCheck" layoutX="452.0" layoutY="215.0" mnemonicParsing="false" onAction="#checkBoxClickHandler" text="Book" />
             <TextField fx:id="mediaSearchField" layoutX="181.0" layoutY="164.0" onAction="#search" prefHeight="29.0" prefWidth="489.0" promptText="search media" />
-            <TableView fx:id="tableView" layoutX="91.0" layoutY="257.0" prefHeight="371.0" prefWidth="827.0">
+            <TableView fx:id="tableView" layoutX="95.0" layoutY="257.0" prefHeight="371.0" prefWidth="827.0">
               <columns>
                 <TableColumn minWidth="0.0" prefWidth="0.0" text="Release Date" />
                   <TableColumn fx:id="titleColumn" prefWidth="290.0" text="Title" />
@@ -32,7 +34,7 @@
               </columns>
             </TableView>
             <Button fx:id="searchButton" layoutX="683.0" layoutY="164.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="83.0" styleClass="search-button" text="Search" />
-            <Button fx:id="searchButton" layoutX="775.0" layoutY="164.0" mnemonicParsing="false" onAction="#summary" prefHeight="29.0" prefWidth="137.0" styleClass="search-button" text="Summary" />
+            <Button fx:id="summaryBtn" layoutX="775.0" layoutY="164.0" mnemonicParsing="false" onAction="#summary" prefHeight="29.0" prefWidth="137.0" styleClass="search-button" text="Summary" />
             <DatePicker fx:id="startDate" layoutX="388.0" layoutY="120.0" onAction="#onDateSelect" onKeyReleased="#onDatePickerKeyPressed" prefHeight="29.0" prefWidth="129.0" promptText=" start date" />
             <DatePicker fx:id="endDate" layoutX="550.0" layoutY="120.0" onAction="#onDateSelect" onKeyReleased="#onDatePickerKeyPressed" prefHeight="29.0" prefWidth="120.0" promptText="end date" />
             <Label layoutX="246.0" layoutY="125.0" text="Released Between" />
@@ -48,14 +50,24 @@
          </children>
       </Pane>
 
-      <StackPane fx:id="singleMediaPane" prefHeight="650.0" prefWidth="980.0" />
-
-      <AnchorPane fx:id="graphAnchorPane">
-            <children>
-            </children>
-            <children>
-                  <Button layoutX="112.0" layoutY="585.0" mnemonicParsing="false" onAction="#switchToMainView" prefHeight="29.0" prefWidth="180.0" styleClass="filter-button" text="Back" />
-            </children>
+      <StackPane fx:id="singleMediaPane" prefHeight="0.0" prefWidth="0.0" />
+      <AnchorPane fx:id="graphAnchorPane" prefHeight="0.0" prefWidth="0.0">
+         <children>
+            <TabPane fx:id="graphTabs" prefHeight="0.0" prefWidth="0.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Amount per rating">
+                  <content>
+                    <AnchorPane fx:id="ratingsTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="Amount per year">
+                  <content>
+                    <AnchorPane fx:id="yearsTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children>
       </AnchorPane>
 
    </children>
