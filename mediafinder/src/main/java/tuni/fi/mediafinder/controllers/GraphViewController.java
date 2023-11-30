@@ -26,6 +26,10 @@ public class GraphViewController {
             // Add bar chart to tabs
             yearsTab.getChildren().add(barChartYear);
             ratingsTab.getChildren().add(barChartRatings);
+            barChartRatings.prefWidthProperty().bind(ratingsTab.widthProperty());
+            barChartRatings.prefHeightProperty().bind(ratingsTab.heightProperty());
+            barChartYear.prefWidthProperty().bind(yearsTab.widthProperty());
+            barChartYear.prefHeightProperty().bind(yearsTab.heightProperty());
 
         }
 
