@@ -1,11 +1,14 @@
 /*
-white:      #fff
 deep-blue:  #1c7c80
-black:      #08393b
+darkness:   #08393b
+gray:       #d1cfcf
+steel-blue: #163d9e
+sky-blue:   #c7dbed
+light-gray: #f2f2f2
 */
 
 .filter-button {
-    -fx-background-color: #fff;
+    -fx-background-color: white;
     -fx-background-radius: 10;
     -fx-border-color: #1c7c80;
     -fx-border-width: 2;
@@ -20,4 +23,122 @@ black:      #08393b
     -fx-border-width: 2;
     -fx-border-color: #08393b;
     -fx-background-insets: 1;
+}
+
+.date-picker {
+    -fx-background-color: #c7dbed;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-border-color: #1c7c80;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-background-insets: 1;
+    -fx-border-width: 2;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #1c7c80;
+}
+
+.date-picker .arrow {
+    -fx-background-color: white;
+}
+
+.date-picker .month-year-pane {
+    -fx-background-color: #163d9e;
+    -fx-text-fill: white;
+}
+
+.date-picker .month-year-pane .label {
+    -fx-text-fill: white;
+}
+
+.date-picker .day-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #163d9e;
+    -fx-alignment: center;
+}
+
+.date-picker .day-cell:hover {
+    -fx-background-color: #c7dbed;
+}
+
+.date-picker .day-cell:focused {
+    -fx-border-color: #163d9e;
+    -fx-border-width: 2px;
+}
+
+.date-picker .day-cell:selected {
+    -fx-background-color: #163d9e;
+    -fx-text-fill: white;
+}
+
+.check-box {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 14px;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #1c7c80;
+    -fx-border-width: 2;
+    -fx-border-radius: 3;
+    -fx-background-insets: 1;
+}
+
+.check-box .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box,
+.check-box:armed .box {
+    -fx-background-color: #1c7c80;
+    -fx-border-color: #163d9e;
+    -fx-background-insets: 3;
+    -fx-background-radius: 2;
+}
+
+.check-box:hover .box {
+    -fx-border-color: #163d9e;
+}
+
+.check-box .text {
+    -fx-fill: #08393b;
+}
+
+.table-view {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-background-color: #1c7c80;
+}
+
+.table-view .column-header-background .label {
+    -fx-background-color: #163d9e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.table-view .column-header {
+    -fx-border-color: transparent transparent #08393b transparent;
+    -fx-padding: -1px;
+}
+
+.table-view .table-cell {
+    -fx-border-color: transparent transparent #08393b transparent;
+    -fx-padding: 10px;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d1cfcf;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+.table-view .scroll-bar:vertical,
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: #1c7c80;
+    -fx-background-radius: 5;
 }

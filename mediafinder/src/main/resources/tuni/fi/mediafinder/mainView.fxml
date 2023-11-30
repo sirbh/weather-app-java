@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #7db3b5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuni.fi.mediafinder.controllers.MainController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="980.0" style="-fx-background-color: #7db3b5;" stylesheets="styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuni.fi.mediafinder.controllers.MainController">
 
    <children>
 
@@ -25,10 +25,10 @@
             <TableView fx:id="tableView" layoutX="91.0" layoutY="257.0" prefHeight="371.0" prefWidth="827.0">
               <columns>
                 <TableColumn minWidth="0.0" prefWidth="0.0" text="Release Date" />
-                  <TableColumn fx:id="titleColumn" prefWidth="259.3333282470703" text="Title" />
-                  <TableColumn fx:id="ratingColumn" prefWidth="114.6666259765625" text="Rating" />
-                  <TableColumn fx:id="mediaTypeColumn" prefWidth="186.6666259765625" text="Media Type" />
-                  <TableColumn fx:id="releaseDateColumn" prefWidth="143.33334350585938" text="Release Date" />
+                  <TableColumn fx:id="titleColumn" prefWidth="290.0" text="Title" />
+                  <TableColumn fx:id="ratingColumn" prefWidth="107.0" text="Rating" />
+                  <TableColumn fx:id="mediaTypeColumn" prefWidth="212.0" text="Media Type" />
+                  <TableColumn fx:id="releaseDateColumn" prefWidth="217.0" text="Release Date" />
               </columns>
             </TableView>
             <Button fx:id="searchButton" layoutX="683.0" layoutY="164.0" mnemonicParsing="false" onAction="#search" prefHeight="29.0" prefWidth="83.0" styleClass="search-button" text="Search" />
