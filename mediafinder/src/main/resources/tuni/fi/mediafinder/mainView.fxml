@@ -39,8 +39,8 @@
             <DatePicker fx:id="endDate" layoutX="550.0" layoutY="120.0" onAction="#onDateSelect" onKeyReleased="#onDatePickerKeyPressed" prefHeight="29.0" prefWidth="120.0" promptText="end date" />
             <Label layoutX="246.0" layoutY="125.0" text="Released Between" />
             <Label layoutX="528.0" layoutY="125.0" text="to" />
-            <Button layoutX="844.0" layoutY="124.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="67.0" styleClass="filter-button" text="Load" />
-            <Button layoutX="686.0" layoutY="124.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="148.0" styleClass="filter-button" text="Save References" />
+            <Button layoutX="844.0" layoutY="124.0" mnemonicParsing="false" onAction="#loadPreference" prefHeight="29.0" prefWidth="67.0" styleClass="filter-button" text="Load" />
+            <Button layoutX="686.0" layoutY="124.0" mnemonicParsing="false" onAction="#savePreference" prefHeight="29.0" prefWidth="148.0" styleClass="filter-button" text="Save References" />
             <Label layoutX="347.0" layoutY="36.0" text="Media Finder">
                <font>
                   <Font size="36.0" />
@@ -67,6 +67,7 @@
                 </Tab>
               </tabs>
             </TabPane>
+            <Button fx:id="graphBackBtn" mnemonicParsing="false" onAction="#switchToMainView" text="Back" />
          </children>
       </AnchorPane>
 
