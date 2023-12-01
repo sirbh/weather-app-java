@@ -32,6 +32,14 @@
         </dependency>
     </dependencies>
     <build>
+		<resources>
+		  <resource>
+			<directory>src\main\resources\tuni\fi\mediafinder</directory>
+			<includes>
+			  <include>**/*.css</include>
+			</includes>
+		  </resource>
+		</resources>
         <plugins>
             <plugin>
                 <groupId>com.jolira</groupId>
