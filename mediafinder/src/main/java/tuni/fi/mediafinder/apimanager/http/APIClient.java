@@ -18,7 +18,6 @@ public class APIClient {
     private static final HttpClient httpClient = SingletonHttpClient.getInstance();
 
     public static String get(String apiUrl) throws Exception {
-        System.out.println(apiUrl);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(apiUrl))
                 .setHeader("accept", "application/json")

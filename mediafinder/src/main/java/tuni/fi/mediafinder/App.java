@@ -66,7 +66,7 @@ public class App extends Application {
         toastStage.setScene(scene);
 
         toastStage.setX(pageStage.getX() + pageStage.getWidth() - 240);
-        toastStage.setY(pageStage.getY() + pageStage.getHeight() / 1.1);
+        toastStage.setY(pageStage.getY() + 80);
 
         toastStage.show();
 
