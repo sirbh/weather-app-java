@@ -25,6 +25,7 @@ public class MediaUtility {
             }
         }
 
+        System.out.println(medias);
         return medias;
     }
 

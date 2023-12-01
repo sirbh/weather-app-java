@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.input.MouseButton;
+import tuni.fi.mediafinder.App;
 import tuni.fi.mediafinder.models.Media;
 import tuni.fi.mediafinder.models.Preference;
 import tuni.fi.mediafinder.utility.JsonUtil;
@@ -87,7 +88,10 @@ public class MainController {
 
     @FXML
     public void search() throws IOException {
-
+        if (mediaSearchField.getText().isEmpty()) {
+            App.toast("No search query!");
+            return;
+        }
         List<Media> mediaList = MediaUtility.getMediasByQuery(mediaSearchField.getText(), movieCheck.isSelected(),
                 bookCheck.isSelected(), startDate.getValue(), endDate.getValue());
 
@@ -98,7 +102,7 @@ public class MainController {
 
         ObservableList<Media> mediaData = FXCollections.observableArrayList(mediaList);
         tableView.setItems(mediaData);
-
+        App.toast("Search ready");
     }
 
     public void initialize() throws IOException {
@@ -174,7 +178,14 @@ public class MainController {
         String endDate = this.endDate.getValue()!=null?this.endDate.getValue().toString():"";
 
         Preference preference = new Preference(searchQuery, movieChecked, bookChecked, startDate, endDate);
-        JsonUtil.savePreferences(preference);
+        if (searchQuery.isEmpty()) {
+            App.toast("No search query!");
+        }
+        else if (JsonUtil.savePreferences(preference)) {
+            App.toast("Preferences saved");
+        } else {
+            App.toast("Saving preferences failed");
+        }
     }
 
     @FXML
@@ -186,6 +197,9 @@ public class MainController {
             this.bookCheck.setSelected(preference.isBookChecked());
             this.startDate.setValue(Utility.pasrseDate(preference.getStartDate()));
             this.endDate.setValue(Utility.pasrseDate(preference.getEndDate()));
+            App.toast("Preferences loaded");
+        } else {
+            App.toast("Loading preferences failed");
         }
     }
 }

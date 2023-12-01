@@ -142,3 +142,19 @@ light-gray: #f2f2f2
     -fx-background-color: #1c7c80;
     -fx-background-radius: 5;
 }
+
+.toast-message {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+.toast-box {
+    -fx-background-color: white;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 5;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-insets: 1;
+    -fx-border-color: #08393b;
+}
