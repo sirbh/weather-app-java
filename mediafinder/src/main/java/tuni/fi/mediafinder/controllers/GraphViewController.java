@@ -14,8 +14,6 @@ public class GraphViewController {
             AnchorPane ratingsTab, 
             AnchorPane yearsTab
         ) {
-            System.out.println(releaseYearData);
-            System.out.println(ratingData);
             ratingsTab.getChildren().clear();
             yearsTab.getChildren().clear();
 
