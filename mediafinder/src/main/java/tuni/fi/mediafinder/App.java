@@ -21,6 +21,7 @@ public class App extends Application {
         String css = this.getClass().getResource("styles.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
+        stage.setTitle("Media Finder");
         stage.show();
     }
 
