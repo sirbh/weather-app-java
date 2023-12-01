@@ -20,6 +20,5 @@ public interface Media {
     Double getRating();
     void setRating(Double rating);
     Utility.MediaType getMediaType();
-    Map<String, String> getVieableMap();
 }
 

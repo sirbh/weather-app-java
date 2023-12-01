@@ -17,6 +17,7 @@ import javafx.scene.input.MouseButton;
 import tuni.fi.mediafinder.App;
 import tuni.fi.mediafinder.models.Media;
 import tuni.fi.mediafinder.models.Preference;
+import tuni.fi.mediafinder.models.Viewable;
 import tuni.fi.mediafinder.utility.JsonUtil;
 import tuni.fi.mediafinder.utility.MediaUtility;
 import tuni.fi.mediafinder.utility.Utility;
@@ -117,7 +118,7 @@ public class MainController {
                 if (selectedMedia != null) {
                     searchPane.setVisible(false);
                     singleMediaPane.setVisible(true);
-                    SingleMediaController.showSingleMediaItem(selectedMedia, singleMediaPane, searchPane);
+                    SingleMediaController.showSingleMediaItem((Viewable)selectedMedia, singleMediaPane, searchPane);
                 }
             }
         });

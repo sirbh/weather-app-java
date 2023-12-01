@@ -12,7 +12,7 @@ import tuni.fi.mediafinder.utility.Utility;
  *
  * @author knsach
  */
-public class Book implements Media {
+public class Book implements Media, Viewable {
     private final String id;
     private final String releaseDate;
     private final Utility.MediaType mediaType = Utility.MediaType.BOOK;

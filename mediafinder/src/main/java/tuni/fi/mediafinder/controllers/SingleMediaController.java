@@ -11,10 +11,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import tuni.fi.mediafinder.models.Media;
+import tuni.fi.mediafinder.models.Viewable;
 
 public class SingleMediaController {
-    public static void showSingleMediaItem(Media singleMediaItem, StackPane detailsContainer, Pane searchContainer) {
+    public static void showSingleMediaItem(Viewable singleMediaItem, StackPane detailsContainer, Pane searchContainer) {
         Map<String, String> details = singleMediaItem.getVieableMap();
         detailsContainer.getChildren().clear(); // Clear existing children
 
