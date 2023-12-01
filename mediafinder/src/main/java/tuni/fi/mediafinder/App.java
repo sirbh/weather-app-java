@@ -21,14 +21,12 @@ public class App extends Application {
     private static Scene scene;
     private static Stage stage;
     private static String STYLESHEET = "styles.css";
-    private static String css;
 
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("mainView"), 980, 650);
         App.stage = stage;
-        css = this.getClass().getResource(STYLESHEET).toExternalForm();
-        scene.getStylesheets().add(css);
+        App.class.getResource(STYLESHEET).toExternalForm();
         stage.setScene(scene);
         stage.setTitle("Media Finder");
         stage.show();
@@ -44,8 +42,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        //System.out.println(MediaUtility.getMediaByReleaseYear("harry potter"));
-        //System.out.println(MediaUtility.getMediaByRatings("harry potter"));
         launch();
     }
 
@@ -61,7 +57,6 @@ public class App extends Application {
         StackPane toastBox = new StackPane(text);
         toastBox.getStyleClass().add("toast-box");
         Scene scene = new Scene(toastBox);
-        scene.getStylesheets().add(css);
         scene.setFill(null);
         toastStage.setScene(scene);
 
