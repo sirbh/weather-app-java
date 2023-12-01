@@ -6,7 +6,7 @@ before running make sure `maven` is installed and working by running command `mv
 
 To build the project go to the root of project `mediafinder` open terminal and run `mvn package`.
 
-Then to run project run `java -jar target\mediafinder-1.0.one-jar.jar`
+Then to run project run `java -jar target\mediafinder-1.0.one-jar.jar` or change go inside `target` folder and run `java -jar mediafinder-1.0.one-jar.jar`
 
 ### Branch Naming Rules
 
