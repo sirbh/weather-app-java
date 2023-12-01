@@ -12,13 +12,14 @@ import java.io.IOException;
 public class JsonUtil {
     private static final String JSON_FILE_PATH = "preferences.json";
 
-    public static void savePreferences(Preference preference) {
+    public static boolean savePreferences(Preference preference) {
         Gson gson = GsonSingleton.getGson();
 
         try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
             gson.toJson(preference, writer);
+            return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
     }
 
@@ -28,7 +29,6 @@ public class JsonUtil {
         try (FileReader reader = new FileReader(JSON_FILE_PATH)) {
             return gson.fromJson(reader, Preference.class);
         } catch (IOException e) {
-            e.printStackTrace();
             return null;
         }
     }
