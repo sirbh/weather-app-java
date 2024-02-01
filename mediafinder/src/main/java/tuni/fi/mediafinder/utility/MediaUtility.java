@@ -65,17 +65,9 @@ public class MediaUtility {
         return medias;
     }
 
-    public static Map<Utility.MediaType, Map<String, Long>> getMediaByRatings(String query) {
+    public static Map<Utility.MediaType, Map<String, Long>> getMediaByRatings(String query, boolean isMovie, boolean isBook, LocalDate startDate, LocalDate endDate) {
 
-        Map<Utility.MediaType, Map<String, Long>> groupedByRatingRange = getMediaByTitle(query).stream()
-                .filter(media -> Utility.checkDate(media.getReleaseDate()))
-                .filter(media -> media.getRating() != null)
-                .map(media -> {
-                    if (media.getMediaType().equals(Utility.MediaType.BOOK)) {
-                        media.setRating(media.getRating() * 2);
-                    }
-                    return media;
-                })
+        Map<Utility.MediaType, Map<String, Long>> groupedByRatingRange = getMediasByQuery(query, isMovie, isBook, startDate, endDate).stream()
                 .collect(
                         Collectors.groupingBy(
                                 Media::getMediaType,
@@ -112,9 +104,9 @@ public class MediaUtility {
         }
     }
 
-    public static Map<Utility.MediaType, Map<String, Long>> getMediaByReleaseYear(String query) {
+    public static Map<Utility.MediaType, Map<String, Long>> getMediaByReleaseYear(String query, boolean isMovie, boolean isBook, LocalDate startDate, LocalDate endDate) {
 
-       Map<Utility.MediaType, Map<String, Long>> groupedByYear = getMediaByTitle(query).stream()
+        Map<Utility.MediaType, Map<String, Long>> groupedByYear = getMediasByQuery(query, isMovie, isBook, startDate, endDate).stream()
                 .filter(media -> Utility.checkDate(media.getReleaseDate()))
                 .filter(media -> media.getRating() != null)
                 .map(media -> {

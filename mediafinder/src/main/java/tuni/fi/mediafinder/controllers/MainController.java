@@ -164,9 +164,11 @@ public class MainController {
         // The query is not saved anywhere so getting text from search input for now
         // Could use media data from tableView maybe?
         Map<Utility.MediaType, Map<String, Long>> releaseYearData = MediaUtility
-                .getMediaByReleaseYear(mediaSearchField.getText());
+                .getMediaByReleaseYear(mediaSearchField.getText(), movieCheck.isSelected(),
+                bookCheck.isSelected(), startDate.getValue(), endDate.getValue());
         Map<Utility.MediaType, Map<String, Long>> ratingData = MediaUtility
-                .getMediaByRatings(mediaSearchField.getText());
+                .getMediaByRatings(mediaSearchField.getText(), movieCheck.isSelected(),
+                bookCheck.isSelected(), startDate.getValue(), endDate.getValue());
         GraphViewController.plotGraphs(releaseYearData, ratingData, ratingsTab, yearsTab);
     }
 
